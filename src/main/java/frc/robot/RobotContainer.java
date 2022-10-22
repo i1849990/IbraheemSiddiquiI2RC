@@ -26,11 +26,17 @@ public class RobotContainer {
   private final static DriveTrain drive = new DriveTrain();
   private static Joystick joy1;
   private static Joystick joy2;
+  private final TankDrive _tankDrive;
+  private final DistanceAuto _distanceAuto;
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
     joy1 = new Joystick(Constants.joy1);
     joy2 = new Joystick(Constants.joy2);
+    DriveTrain = new DriveTrain();
+    _tankDrive = new TankDrive(_driveTrain, joy1,joy2);
+    _distanceAuto = new DistanceAuto (_driveTrain, 1);
+    _driveTrain.setDefaultCommand(_distanceAuto);
     configureButtonBindings();
   }
 
@@ -59,5 +65,8 @@ public class RobotContainer {
   }
   public static DriveTrain getDrive(){
     return drive;
+  }
+  public Command getAutonomousCommand(){
+    return _distanceAuto;
   }
 }
